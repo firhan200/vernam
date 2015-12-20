@@ -1,0 +1,9 @@
+1. bikin detail di member premium			[ok]
+2. bikin kartu nama di dashboard memberi		[pending]
+3. lihat pendafar, approve, cancel 
+di career jam,training(semua)
+nama
+email
+no hp
+universitas(opsional)
+4. statistik pengunjung(plugin)

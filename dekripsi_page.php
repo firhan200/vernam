@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="assets/materialize/css/materialize.min.css" rel="stylesheet" type="text/css" media="screen,projection">
+		<link href="assets/materialize/css/googlefont.css" rel="stylesheet" type="text/css" media="screen,projection">
+		<link href="assets/css/style.css" rel="stylesheet" type="text/css" media="screen,projection">
+	</head>
+	<body>	
+		<div class="container">
+			<div class="row">
+				<div class="col s12 m12 l12 box-t">
+					<div class="title-t">
+						<i class="material-icons">vpn_key</i> Vernam Algorithm
+					</div>
+					<br/>
+					<div class="divider"></div>
+					<br/>
+					<div class="row">
+						<div class="col s12 m3 l3">
+							<div class="input-field col s12">
+								<i class="material-icons prefix">vpn_key</i>
+				          		<input id="key" name="key" type="text" class="validate" required>
+				          		<label for="key">Masukan kunci</label>
+				        	</div>
+						</div>
+						<div class="col s12 m9 l9">
+							<a href="index.php">Enkripsi</a> | <a href="dekripsi_page.php"><b><u>Dekripsi</u></b></a>
+							<form action="#" method="post" id="decrypt">
+								<div class="row">
+									<div class="col s12 m6">
+										<div class="input-field col s12">
+											<b>Chiper Teks</b>
+							          		<textarea id="textarea1" style="height:150px" placeholder="Masukan Chiper Teks" required></textarea>
+							        	</div>
+									</div>
+									<div class="col s12 m6">
+										<div class="input-field col s12">
+											<b>Plain Teks</b>
+							          		<textarea id="textarea2" style="height:150px" placeholder="Hasil Dekripsi"></textarea>
+							        	</div>
+									</div>
+								</div>
+								<center><button type="submit" style="margin-top:10px;" class="btn waves-effect waves-light">DEKRIPSI</button></center>
+							</form>
+							<br/>
+							<form action="#" id="addtext" method="post" enctype="multipart/form-data" align="right">
+				        		<input type="file" name="filetxt">
+				        		<button type="submit" class="btn waves-effect waves-light red">unggah</button>
+				        	</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- javascript -->
+		<script src="assets/js/jquery.js" type="text/javascript"></script>
+		<script src="assets/materialize/js/materialize.min.js" type="text/javascript"></script>
+		<script>
+			$(document).ready(function(){
+				$("#decrypt").submit(function(e){
+					var chiperText = $("#textarea1").val();
+					var key = $("#key").val();
+					if(key==""){
+						alert('Key tidak boleh kosong');
+					}else{
+						$.ajax({
+							url:'dekripsi.php',
+							data:{chiper_text:chiperText, key:key},
+							method:'post',
+							success:function(data){
+								$("#textarea2").text(data);
+							}
+						});
+					}
+					return false;
+				});
+				$("#addtext").submit(function(){
+					var formData = new FormData($(this)[0]);
+					$.ajax({
+						url:'readfile.php',
+						data:formData,
+						type:'POST',
+						contentType: false,
+						processData: false,
+						success:function(data){
+							$("#textarea1").val(data);
+						}
+					});
+					return false;
+				});
+			});
+		</script>
+	</body>
+</html>
