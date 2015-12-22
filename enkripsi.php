@@ -26,9 +26,18 @@ function normalize($dec){
 	return ($dec%126)+33;
 	//return $dec+33;
 }
-
-$plain = $_POST['plain_text'];
+// Mengubah ENTER atau NEW LINE menjadi SPASI
+$plain = preg_replace("/\n/", " ", $_POST['plain_text']);
 $key = $_POST['key'];
 $chiper = vernam_enkripsi($plain, $key);
+
+// Menyimpan hasil dekripsi ke dalam file.txt
+//$fileName = gmdate("H-i-s-d-m-y", time()+3600*7).".txt";
+//$file_enkripsi = fopen($fileName, "w") or die('Cannot save file:  '.$fileName);
+//fwrite($file_enkripsi, $chiper);
+//fclose($file_enkripsi);
+//menyimpan file pada folder doc dengan nama tanggal
+//rename ($fileName, "enkripsi/".$fileName."");
+
 echo $chiper;
 ?>

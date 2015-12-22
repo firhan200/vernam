@@ -45,9 +45,12 @@
 								<center><button type="submit" style="margin-top:10px;" class="btn waves-effect waves-light">ENKRIPSI</button></center>
 							</form>
 							<br/>
-							<form action="#" id="addtext" method="post" enctype="multipart/form-data" align="right">
+							<form action="#" id="addtext" method="post" enctype="multipart/form-data">
 				        		<input type="file" name="filetxt">
 				        		<button type="submit" class="btn waves-effect waves-light red">unggah</button>
+				        	</form>
+				        	<form action="#" id="simpan" method="post" align="right">
+				        			<button align="right" style="margin-left:675px;" type="submit" class="btn waves-effect waves-light red">simpan</button>
 				        	</form>
 						</div>
 					</div>
@@ -108,6 +111,22 @@
 						}
 					});
 					return false;
+				});
+				$("#simpan").submit(function(e){
+					if($("#textarea2").val()==""){
+						alert("belum ada chiper yang akan disimpan")
+					}else{
+					var hasilchiper = $("#textarea2").val();
+					$.ajax({
+						url:'simpan_enkrip.php',
+						data:{chiper_hasil:hasilchiper},
+						method:'post',
+						success: function(data) { 
+            				alert("hasil chiper tersimpan");
+        				}
+					});
+					return false;
+					}
 				});
 			});
 		</script>

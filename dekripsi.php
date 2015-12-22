@@ -19,8 +19,17 @@ function vernam_dekripsi($chiper, $key){
 	return $plainText;
 }
 
-$chiper = $_POST['chiper_text'];
+// Mengubah ENTER atau NEW LINE menjadi SPASI
+$chiper = preg_replace("/\n/", "", $_POST['chiper_text']);
 $key = $_POST['key'];
 $plain = vernam_dekripsi($chiper, $key);
+// Menyimpan hasil dekripsi ke dalam file.txt
+$fileName = gmdate("H-i-s-d-m-y", time()+3600*7).".txt";
+$file_dekripsi = fopen($fileName, "w") or die('Cannot save file:  '.$fileName);
+fwrite($file_dekripsi, $plain);
+fclose($file_dekripsi);
+//menyimpan file pada folder doc dengan nama tanggal
+rename ($fileName, "dekripsi/".$fileName."");
+
 echo $plain;
 ?>
